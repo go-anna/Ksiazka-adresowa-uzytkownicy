@@ -1,0 +1,5 @@
+1|1|fgh|gh|gh|h|h|
+2|1|gh|gh|gh|h||
+3|2|fg|fg|fgh|gh|gh|
+4|2|fgh|gh|gh|h||
+1|1|lolo|gh|gh|h|h|

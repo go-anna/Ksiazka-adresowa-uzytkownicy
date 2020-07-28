@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1594231497 source:c:\users\joanna\desktop\c++\ksiazka adresowa+uzytkownik\main.cpp
+1595970280 source:c:\users\joanna\desktop\c++\ksiazka adresowa+uzytkownik\main.cpp
 	<iostream>
 	<windows.h>
 	<fstream>
@@ -7,4 +7,5 @@
 	<string>
 	<vector>
 	<sstream>
+	<algorithm>
 
