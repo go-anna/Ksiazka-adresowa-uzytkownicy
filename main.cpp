@@ -241,6 +241,7 @@ void zmienHaslo(vector <Uzytkownik> &uzytkownicy, int idZalogowanegoUzytkownika,
                 {
                     itr -> haslo = noweHaslo;
                     uzytkownicy[pozycjaOsoby].haslo = noweHaslo;
+                    zapiszDaneUzytkownikaDoPliku(uzytkownicy);
                     cout << "Haslo zostalo zmienione."<< endl;
                     Sleep(2000);
                     return;
@@ -777,27 +778,53 @@ void zapiszNowyKontaktDoPliku(Adresat pusty)
     plik.close();
 }
 
-void usunKontakt (vector <Adresat> &adresat)
+int usunKontakt (vector <Adresat> &adresat)
 {
     int szukanyNumerID;
     int iloscOsob;
-
+char wyborFunkcji;
     cout << "Wyszukanie adresata. Podaj numer ID adresata: ";
     cin >> szukanyNumerID;
 
-    for (vector <Adresat>::iterator itr = adresat.begin(); itr != adresat.end(); itr++)
-    {
-        if (itr -> idAdresata == szukanyNumerID)
-        {
-            itr = adresat.erase(itr);
-            cout << "Kontakt zostal usuniety." << endl << endl;
-            system("pause");
-            break;
+    system("cls");
+    wyswietlCalaKsiazkeAdresowa(adresat);
+
+       if (sprawdzCzyIdIstnieje(adresat,szukanyNumerID) == 1) {
+        for (vector <Adresat>::iterator itr = adresat.begin(); itr != adresat.end() ; itr++) {
+            if (itr -> idAdresata == szukanyNumerID) {
+                cout << "Czy na pewno chcesz usunac " <<itr -> imie << " " << itr -> nazwisko << "?"<< endl;
+                cout << "(t/n)";
+            }
         }
-        cout << "Usunieto wybrana osobe." << endl;
-        usuwanieZPliku(iloscOsob, szukanyNumerID);
+        while(true) {
+            cin >> wyborFunkcji;
+            if (wyborFunkcji == 't') {
+                for (vector <Adresat>:: iterator itr = adresat.begin(); itr != adresat.end() ; itr++) {
+                    if (itr -> idAdresata == szukanyNumerID) {
+                        adresat.erase(itr);
+                        itr--;
+                    }
+                }
+                iloscOsob--;
+                cout << "Usunieto wybrana osobe." << endl;
+                usuwanieZPliku(iloscOsob, szukanyNumerID);
+                cout << "Nacisnij dowolny przycisk, aby kontynuowac." << endl;
+                getch();
+                return iloscOsob;
+
+            } else if (wyborFunkcji == 'n') {
+                return iloscOsob;
+            }
+        }
+    } else {
+        system("cls");
+        cout << "Nie znaleziono osoby o podanym numerze ID." << endl;
+        cout << "Nacisnij dowolny przycisk, aby kontynuowac." << endl;
+        getch();
+        return iloscOsob;
     }
 }
+
 
 int wczytajKontakt(vector <Adresat> &adresat, int idZalogowanegoUzytkownika)
 {
