@@ -782,25 +782,32 @@ int usunKontakt (vector <Adresat> &adresat)
 {
     int szukanyNumerID;
     int iloscOsob;
-char wyborFunkcji;
+    char wyborFunkcji;
     cout << "Wyszukanie adresata. Podaj numer ID adresata: ";
     cin >> szukanyNumerID;
 
     system("cls");
     wyswietlCalaKsiazkeAdresowa(adresat);
 
-       if (sprawdzCzyIdIstnieje(adresat,szukanyNumerID) == 1) {
-        for (vector <Adresat>::iterator itr = adresat.begin(); itr != adresat.end() ; itr++) {
-            if (itr -> idAdresata == szukanyNumerID) {
+    if (sprawdzCzyIdIstnieje(adresat,szukanyNumerID) == 1)
+    {
+        for (vector <Adresat>::iterator itr = adresat.begin(); itr != adresat.end() ; itr++)
+        {
+            if (itr -> idAdresata == szukanyNumerID)
+            {
                 cout << "Czy na pewno chcesz usunac " <<itr -> imie << " " << itr -> nazwisko << "?"<< endl;
                 cout << "(t/n)";
             }
         }
-        while(true) {
+        while(true)
+        {
             cin >> wyborFunkcji;
-            if (wyborFunkcji == 't') {
-                for (vector <Adresat>:: iterator itr = adresat.begin(); itr != adresat.end() ; itr++) {
-                    if (itr -> idAdresata == szukanyNumerID) {
+            if (wyborFunkcji == 't')
+            {
+                for (vector <Adresat>:: iterator itr = adresat.begin(); itr != adresat.end() ; itr++)
+                {
+                    if (itr -> idAdresata == szukanyNumerID)
+                    {
                         adresat.erase(itr);
                         itr--;
                     }
@@ -812,11 +819,15 @@ char wyborFunkcji;
                 getch();
                 return iloscOsob;
 
-            } else if (wyborFunkcji == 'n') {
+            }
+            else if (wyborFunkcji == 'n')
+            {
                 return iloscOsob;
             }
         }
-    } else {
+    }
+    else
+    {
         system("cls");
         cout << "Nie znaleziono osoby o podanym numerze ID." << endl;
         cout << "Nacisnij dowolny przycisk, aby kontynuowac." << endl;
