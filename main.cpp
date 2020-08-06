@@ -218,37 +218,23 @@ void wczytajUzytkownikowZPliku(vector <Uzytkownik> &uzytkownicy)
         plik.close();
     }
 }
-void zmienHaslo(vector <Uzytkownik> &uzytkownicy, int idZalogowanegoUzytkownika, int iloscUzytkownikow)
+void zmienHaslo(vector <Uzytkownik> &uzytkownicy, int idZalogowanegoUzytkownika)
 {
+    string noweHaslo = "";
+    cout << "Podaj nowe haslo: ";
+    cin>>noweHaslo;
 
-    system("cls");
-    string noweHaslo;
-    int pozycjaOsoby = 0;
-    cout << "Wprowadz nowe haslo: " << endl;
-    while(true)
+    for (vector <Uzytkownik>::iterator itr = uzytkownicy.begin(); itr != uzytkownicy.end(); itr++)
     {
-        cin >> noweHaslo;
-        for (vector <Uzytkownik> :: iterator itr = uzytkownicy.begin(); itr != uzytkownicy.end(); itr++)
+        if (itr -> id == idZalogowanegoUzytkownika)
         {
-            if (itr -> id == idZalogowanegoUzytkownika)
-            {
-                if (itr -> haslo == noweHaslo)
-                {
-                    system("cls");
-                    cout << "Wprowadz nowe haslo:" << endl;
-                }
-                else
-                {
-                    itr -> haslo = noweHaslo;
-                    uzytkownicy[pozycjaOsoby].haslo = noweHaslo;
-                    zapiszDaneUzytkownikaDoPliku(uzytkownicy);
-                    cout << "Haslo zostalo zmienione."<< endl;
-                    Sleep(2000);
-                    return;
-                }
-            }
+            itr -> haslo = noweHaslo;
+            cout << "Haslo zostalo zmienione." << endl << endl;
+            system("pause");
         }
     }
+    zapiszDaneUzytkownikaDoPliku(uzytkownicy);
+
 }
 int wylogujUzytkownika (vector <Adresat> &adresat, int idZalogowanegoUzytkownika)
 {
@@ -1039,7 +1025,7 @@ int main()
                 edytujKontakt(adresat);
                 break;
             case '7':
-                zmienHaslo(uzytkownicy, idZalogowanegoUzytkownika, iloscUzytkownikow);
+                zmienHaslo(uzytkownicy, idZalogowanegoUzytkownika);
                 break;
             case '8':
                 idZalogowanegoUzytkownika = wylogujUzytkownika(adresat,idZalogowanegoUzytkownika);
